@@ -200,4 +200,12 @@ describe "Home" do
       within(".header-card") { expect(page).not_to have_link }
     end
   end
+
+  scenario "Custom favicon" do
+    create(:site_customization_image, name: "favicon", image: fixture_file_upload("favicon_custom.ico"))
+
+    visit root_path
+
+    expect(page).to have_css("link[rel='shortcut icon'][href$='favicon_custom.ico']", visible: :hidden)
+  end
 end
